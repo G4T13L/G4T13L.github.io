@@ -1,11 +1,7 @@
 ---
-sort: 2
+sort: 1
 ---
 
 # writeups
-
-```
-{% raw %}{% include list.liquid all=true %}{% endraw %}
-```
 
 {% include list.liquid all=true %}

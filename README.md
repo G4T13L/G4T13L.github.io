@@ -1,11 +1,3 @@
----
-sort: 1
----
-
-# Test Documentation
-
-```
-{% raw %}{% include list.liquid all=true %}{% endraw %}
-```
+# Random Security
 
 {% include list.liquid all=true %}
