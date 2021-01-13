@@ -1,3 +1,5 @@
+# Shocker
+
 furious 10.10.10.56
 
 nmap -sC -sV -p80,2222 10.10.10.56 -Pn -n -oN targeted
