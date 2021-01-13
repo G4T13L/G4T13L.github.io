@@ -35,4 +35,4 @@ cat /root/root.txt
 ## root
 cc4f0afe3a1026d402ba10329674a8e2
 
-![gcore.gif](gcore.gif)
+![gcore.png](gcore.png)
