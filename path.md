@@ -34,16 +34,16 @@ Tarea: Crear un panel Login usando una DB
 * [https://2019game.picoctf.com/problems](https://2019game.picoctf.com/problems)
 * [https://dvwa.co.uk/](https://dvwa.co.uk/)
 
-### Intermedio:
+### Intermedio
 * [https://portswigger.net/users/youraccount](https://portswigger.net/users/youraccount)
 
 ## Recursos
 ### Seguridad en general
 * [https://trailofbits.github.io/ctf/intro/find.html](https://trailofbits.github.io/ctf/intro/find.html)
 
-### Teoria Basica:
+### Teoria Basica
 
-#### Comenzar en web:
+#### Comenzar en web
 
 * [https://developer.mozilla.org/en-US/docs/Learn](https://developer.mozilla.org/en-US/docs/Learn)
 * [https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web)
