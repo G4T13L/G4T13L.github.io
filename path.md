@@ -29,13 +29,13 @@ Tarea: Crear un panel Login usando una DB
 
 ## Laboratorios
 ### Basico
-https://pentesterlab.com/exercises/web_for_pentester/course
-https://overthewire.org/wargames/natas/
-https://2019game.picoctf.com/problems
-https://dvwa.co.uk/
+[https://pentesterlab.com/exercises/web_for_pentester/course](https://pentesterlab.com/exercises/web_for_pentester/course)
+[https://overthewire.org/wargames/natas/](https://overthewire.org/wargames/natas/)
+[https://2019game.picoctf.com/problems](https://2019game.picoctf.com/problems)
+[https://dvwa.co.uk/](https://dvwa.co.uk/)
 
 ### Intermedio:
-https://portswigger.net/users/youraccount
+[https://portswigger.net/users/youraccount](https://portswigger.net/users/youraccount)
 
 ## Recursos
 ### Seguridad en general
