@@ -11,7 +11,7 @@
 
 Tarea: Crear un panel Login usando una DB
 
-## Web explotation
+## Temas de Web explotation
 
 * ¿Qué es web explotation?
 * Web for Pentester
