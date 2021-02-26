@@ -27,13 +27,6 @@ Tarea: Crear un panel Login usando una DB
 * PICO CTF 2019
 * DVWA
 
-## Laboratorios
-### Basico
-* [https://pentesterlab.com/exercises/web_for_pentester/course](https://pentesterlab.com/exercises/web_for_pentester/course)
-* [https://overthewire.org/wargames/natas/](https://overthewire.org/wargames/natas/)
-* [https://2019game.picoctf.com/problems](https://2019game.picoctf.com/problems)
-* [https://dvwa.co.uk/](https://dvwa.co.uk/)
-
 ### Intermedio
 * [https://portswigger.net/users/youraccount](https://portswigger.net/users/youraccount)
 
@@ -81,3 +74,11 @@ Tarea: Crear un panel Login usando una DB
 * [https://primer.picoctf.com/#_web_exploits](https://primer.picoctf.com/#_web_exploits) : teoria básica html, js, php y web explotation
 * [https://picoctf.org/learning_guides/Book-3-Web-Exploitation.pdf](https://picoctf.org/learning_guides/Book-3-Web-Exploitation.pdf) : teoria con enlaces
 * [https://ctf101.org/web-exploitation/overview/](https://ctf101.org/web-exploitation/overview/) : temas sobre web explotation
+
+## Laboratorios
+### Basico
+* [Web for pentester](https://pentesterlab.com/exercises/web_for_pentester/course)
+* [Natas](https://overthewire.org/wargames/natas/)
+* [PicoCTF 2019](https://2019game.picoctf.com/problems)
+* [DVWA](https://dvwa.co.uk/)
+
