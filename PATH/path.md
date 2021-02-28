@@ -77,7 +77,7 @@ Tarea: Crear un panel Login usando una DB
 
 ## Laboratorios
 ### Basico
-* [Web for pentester](PATH/web4pentester.html): [https://pentesterlab.com/exercises/web_for_pentester/course](https://pentesterlab.com/exercises/web_for_pentester/course)
+* [Web for pentester](web4pentester.md): [https://pentesterlab.com/exercises/web_for_pentester/course](https://pentesterlab.com/exercises/web_for_pentester/course)
 * Natas: [https://overthewire.org/wargames/natas/](https://overthewire.org/wargames/natas/)
 * PicoCTF 2019: [https://2019game.picoctf.com/problems](https://2019game.picoctf.com/problems)
 * DVWA: [https://dvwa.co.uk/](https://dvwa.co.uk/)
