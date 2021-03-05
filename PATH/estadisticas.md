@@ -2,7 +2,7 @@
 
 ## Semana 2
 
-![semana2](D:\G4T13L.github.io\PATH\semana2_Ejerciciostatales_y_firstblood.png)
+![semana2](semana2_Ejerciciostatales_y_firstblood.png)
 
 ## Semana 1
 
