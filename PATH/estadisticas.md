@@ -10,4 +10,4 @@
 
 ![semana1_Ejerciciostatales_y_firstblood.png](semana1_Ejerciciostatales_y_firstblood.png)
 
-Actualizado 2 de marzo de 2021 7:16 pm
+Actualizado 4 de marzo de 2021 7:31 pm
