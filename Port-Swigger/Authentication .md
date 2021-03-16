@@ -36,7 +36,7 @@ Con eso ya encontramos un usuario, ahora hacemos lo mismo pero cambiando la cont
 
 La respuesta que no tiene ningun mensaje de error sería la contraseña correcta.
 
-## Lab 2: 
+## Lab 2: Username enumeration via response timing
 
 Para este laboratorio tenemos que realizar el mismo proceso que el anteriro laboratorio pero las respuestas son el mismo en ambos casos aparentemente, en este caso te dan `Invalid username or password.` pero cuando la respuesta es correcta no tiene el punto final
 
@@ -45,3 +45,21 @@ Para este laboratorio tenemos que realizar el mismo proceso que el anteriro labo
 Para la contraseña de la misma manera realizamos un ataque de fuerza bruta y buscamos el que nos de una redireccion o que no nos bote algun mensaje de error.
 
 ![auth2.2.png](auth2.2.png)
+
+## Lab 3: 
+
+Para este laboratorio se inicia de la misma manera que laboratorios anterirores enviar la consulta al intruder, en este caso debemos agregar la cabecera `X-Forwarded-For` con una dirección IP pues la pagína revisa la cantidad de intentos registrados por IP. Luego debemos modificar la consulta donde la password debe ser muy larga para que se demore en procesar cuando el usuario sea el correcto.
+
+![auth3.1.png](auth3.1.png)
+
+Seleccionamos el tipo de ataque **Pichfork** para que itere con dos listas, donde una será los dos ultimos digitos de alguna IP y la otra iteraría los nombres de usuarios.
+
+![auth3.2.png](auth3.2.png)
+
+Para la primera lista usaremos un payload de tipo Numbers y se colocara segun la imagen para generar numeros del 1 al 254. En el caso de la segunda lista serán los usuarios como en los anteriores laboratorios.
+
+Ahora deberemos ver como demora cada consulta. También en **columns** seleccionamos la opcion de **response received** para ver el tiempo de respuesta y el que tenga un valor mayor será el resultado correcto.
+
+![auth3.3.png](auth3.3.png)
+
+Finalmente, solo nos faltará buscar la contraseña usando el usuario que encontramos y esperar una redireccion (codigo 302).
