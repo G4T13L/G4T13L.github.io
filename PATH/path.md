@@ -27,9 +27,6 @@ Tarea: Crear un panel Login usando una DB
 * PICO CTF 2019
 * DVWA
 
-### Intermedio
-* [https://portswigger.net/users/youraccount](https://portswigger.net/users/youraccount)
-
 ## Recursos
 ### Seguridad en general
 * [https://trailofbits.github.io/ctf/intro/find.html](https://trailofbits.github.io/ctf/intro/find.html)
@@ -81,3 +78,7 @@ Tarea: Crear un panel Login usando una DB
 * Natas: [https://overthewire.org/wargames/natas/](https://overthewire.org/wargames/natas/)
 * PicoCTF 2019: [https://2019game.picoctf.com/problems](https://2019game.picoctf.com/problems)
 * DVWA: [https://dvwa.co.uk/](https://dvwa.co.uk/)
+
+### Intermedio
+
+* [https://portswigger.net/users/youraccount](https://portswigger.net/users/youraccount)
