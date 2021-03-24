@@ -1,8 +1,10 @@
 # Authentication
 
-## Vulnerabilities in password-based login
+## Brute Force Attacks
 
-### Lab 1: User name enumeration via different responses
+### Vulnerabilities in password-based login
+
+#### Lab 1: User name enumeration via different responses
 
 Para estos laboratorios se estará utilizando burp suite. El ataque se efectuara en la pagina de logeo del laboratorio.
 
@@ -38,7 +40,7 @@ Con eso ya encontramos un usuario, ahora hacemos lo mismo pero cambiando la cont
 
 La respuesta que no tiene ningun mensaje de error sería la contraseña correcta.
 
-### Lab 2: Username enumeration via subtly different responses
+#### Lab 2: Username enumeration via subtly different responses
 
 Para este laboratorio tenemos que realizar el mismo proceso que el anteriro laboratorio pero las respuestas son el mismo en ambos casos aparentemente, en este caso te dan `Invalid username or password.` pero cuando la respuesta es correcta no tiene el punto final
 
@@ -48,7 +50,7 @@ Para la contraseña de la misma manera realizamos un ataque de fuerza bruta y bu
 
 ![auth2.2.png](auth2.2.png)
 
-### Lab 3: Username enumeration via response timing
+#### Lab 3: Username enumeration via response timing
 
 Para este laboratorio se inicia de la misma manera que laboratorios anterirores enviar la consulta al intruder, en este caso debemos agregar la cabecera `X-Forwarded-For` con una dirección IP pues la pagína revisa la cantidad de intentos registrados por IP. Luego debemos modificar la consulta donde la password debe ser muy larga para que se demore en procesar cuando el usuario sea el correcto.
 
@@ -66,9 +68,9 @@ Ahora deberemos ver como demora cada consulta. También en **columns** seleccion
 
 Finalmente, solo nos faltará buscar la contraseña usando el usuario que encontramos y esperar una redireccion (codigo 302).
 
-## Flawed brute-force protection
+### Flawed brute-force protection
 
-### Lab 4: Broken brute-force protection, IP block
+#### Lab 4: Broken brute-force protection, IP block
 
 Para este laboratorio usamos lo que vimos anteriormente, en este caso queremos buscar la contraseña del usuario **carlos** pero nos bloquean la ip cada 1 min por lo que usaremos credenciales validas luego de cada vez que intentemos otras credenciales para que se reinicie la cantidad de intentos por IP.
 
@@ -81,3 +83,39 @@ tenemos las credenciales validas de usuario **wiener** y contraseña **peter**, 
 ![auth4.2.png](auth4.2.png)
 
 buscamos por codigo de estado 302 en donde este el usuario carlos para encontrar la consulta correcta.
+
+### Account locking
+
+#### Lab 5: User name enumeration via account lock
+
+Para este laboratorio habiendo mandado la consulta del login al **intruder**, se modifica de la siguiente manera para iterar entre usuarios y agregar al final ese simbolo para que se pueda repetir el mismo valor mas de una vez con los payloads. Para este caso usaremos **cluster bomb** en tipo de ataque
+
+![auth5.1.png](auth5.1.png)
+
+En el primer payload colocamos la lista de los usuarios. En el segundo le colocamos una lista simple en donde agregamos valores nulos, al no colocar nada y darle en el boton de agregar.
+
+![auth5.2.png](auth5.2.png)
+
+Para obtener el usuario buscamos que tenga la mayor longitud en la respuesta.
+
+![auth5.3.png](auth5.3.png)
+
+Luego como los anteriores laboratorios buscamos la contraseña con el usuario encontrado y vemos de que no indica un mensaje de error cuando el usuario y contraseña son correctos.
+
+![auth5.4.png](auth5.4.png)
+
+### User rate limiting
+
+#### Lab 6: Broken brute-force protection, multiple credentials per request
+
+Iniciamos interceptando la consulta y vemos de que esta enviando la información como JSON.
+
+![auth6.1.png](auth6.1.png)
+
+Para resolver este laboratorio debemos ingresar mas de una contraseña, y para esto se modificará el parametro password para que en vez de ingresar un string enviará un array de string.
+
+![auth6.2.png](auth6.2.png)
+
+y terminaría de esta manera.
+
+![auth6.3.png](auth6.3.png)
