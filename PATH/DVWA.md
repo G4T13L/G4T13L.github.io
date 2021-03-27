@@ -49,6 +49,6 @@ dejar la terminal corriendo, para cerrarlo darle ctrl+c
 
 ## Recomendaciones
 
-Cuando entras por primera vez ingresa cualquier usuario y contraseña luego te volverá a pedir una cuenta y le das en crear o editar la base de datos.
+Al ingresar usar las credenciales admin y password, luego le das en crear o editar la base de datos.
 
 No te atasques con un mismo ejercicio, si llevas mucho tiempo entonces busca la solución en internet y busca como llego a esa respuesta.
