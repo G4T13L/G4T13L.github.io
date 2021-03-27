@@ -1,4 +1,4 @@
-# Learning Path
+# Web Explotation
 
 ## Teoría Basica
 
@@ -8,8 +8,6 @@
 * JS
 * SQL
 * PHP
-
-Tarea: Crear un panel Login usando una DB
 
 ## Temas de Web explotation
 
@@ -64,6 +62,7 @@ Tarea: Crear un panel Login usando una DB
 #### PHP
 
 * [https://www.w3schools.com/php/default.asp](https://www.w3schools.com/php/default.asp)
+* [https://www.php.net/](https://www.php.net/)
 
 #### Web explotation
 
