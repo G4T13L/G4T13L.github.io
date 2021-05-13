@@ -119,3 +119,43 @@ Para resolver este laboratorio debemos ingresar mas de una contraseña, y para e
 y terminaría de esta manera.
 
 ![auth6.3.png](auth6.3.png)
+
+### Vulnerabilities in multi-factor authentication
+
+
+#### Lab 7: 2FA simple bypass
+
+
+#### Lab 8: 2FA broken logic
+
+Iniciamos logeandonos con las credenciales `wiener:peter`, aquí interceptaremos los paquetes enviados.
+![auth8.1.png](auth8.1.png)
+
+Debemos modificar el valor de `verify=carlos` para que mande el segundo factor de autentificación a la cuenta de carlos.
+
+![auth8.2.png](auth8.2.png)
+
+Ahora necesitaremos enviar la consulta al intruder y modificarla con `verify=carlos` con algun numero para la autentificación de segundo factor.
+
+![auth8.3.png](auth8.3.png)
+
+En el intruder cambiamos `verify=carlos`, usamos el ataque de tipo sniper y limpiamos con clear. Se selecciona unicamente los numeros que vamos a iterar con un ataque de fuerza bruta.
+
+![auth8.4.png](auth8.4.png)
+
+Para payload usaremos una lista de numeros con las siguientes propiedades:
+
+![auth8.5.png](auth8.5.png)
+
+Por último agregamos en options en grep extract que busque la frase de código invalido.
+
+Inciamos el ataque y buscamos el que nos de un código de respuesta de 302
+![auth8.6.png](auth8.6.png)
+
+Con la respuesta correcta le damos click derecho y la opción **show response in browser**
+
+![auth8.7.png](auth8.7.png)
+
+Copiamos y pegamos el enlace en el navegador de burp suite para que nos redireccione, otra forma es copiar la cookie de session y colocarla en el navegador que tengamos.
+
+![auth8.8.png](auth8.8.png)
