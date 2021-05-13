@@ -1,8 +1,8 @@
 # Authentication
 
-## Brute Force Attacks
+## Vulnerabilities in password-based login
 
-### Vulnerabilities in password-based login
+### Brute Force Attacks
 
 #### Lab 1: User name enumeration via different responses
 
@@ -120,11 +120,13 @@ y terminaría de esta manera.
 
 ![auth6.3.png](auth6.3.png)
 
-### Vulnerabilities in multi-factor authentication
+## Vulnerabilities in multi-factor authentication
 
+### Bypassing two-factor authentication
 
 #### Lab 7: 2FA simple bypass
 
+### Flawed two-factor verification logic
 
 #### Lab 8: 2FA broken logic
 
@@ -159,3 +161,7 @@ Con la respuesta correcta le damos click derecho y la opción **show response in
 Copiamos y pegamos el enlace en el navegador de burp suite para que nos redireccione, otra forma es copiar la cookie de session y colocarla en el navegador que tengamos.
 
 ![auth8.8.png](auth8.8.png)
+
+### Brute-forcing 2FA verification codes
+
+#### Lab 9: 2FA bypass using a brute-force attack
