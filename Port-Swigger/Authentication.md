@@ -207,6 +207,7 @@ Ya por útlimo realizamos en el intruder un ataque de fuerza bruta con el 2do fa
 ![auth9.9.png](auth9.9.png)
 
 Para este ataque es necesario usar unicamente un hilo sino hay problemas con la sesiones y nos bota errores en la consulta.
+
 ![auth9.10.png](auth9.10.png)
 
 Ya como resultado del ataque debemos buscar la consulta que nos indique una redirección(código 302) le damos click derecho y mostrar en el navegador, igual que el laboratorio anterior.
