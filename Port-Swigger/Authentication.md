@@ -165,3 +165,50 @@ Copiamos y pegamos el enlace en el navegador de burp suite para que nos redirecc
 ### Brute-forcing 2FA verification codes
 
 #### Lab 9: 2FA bypass using a brute-force attack
+
+Comenzamos iniciando sesión con las credenciales que tenemos y mandamos una consulta del 2do factor de autentificación con algun numero. Ahora con eso vamos a `proyect options` y en la pestaña de `session` agregamos en session handling rules.
+
+![auth9.1.png](auth9.1.png)
+
+Le cambiamos el nombre y agregamos la opción `run macro`.
+
+![auth9.2.png](auth9.2.png)
+
+Luego de damos a agregar nuevamente
+
+![auth9.3.png](auth9.3.png)
+
+En la ventana de **Macro Recorder** seleccionamos las que queremos que se repitan, en este caso serán:
+
+1. Cargar la página inicio de sesión.
+2. Mandar las credenciales.
+3. recbir la página para indicar el código de 2do factor.
+
+La útlima consulta que es donde mandamos el código no será parte de la macro, esa consulta será utilizada para la fuerza bruta.
+
+Entonces seleccionamos estas 3 y le damos **Ok**.
+![auth9.4.png](auth9.4.png)
+
+Ahora le damos en la opción de test macro para verificar que se esta tomando correctamente los parametros.
+![auth9.5.png](auth9.5.png)
+
+Aquí debemos verificar que en la reponse del primero su parametro csrf debe ser igual al que salga en la consulta 2.
+![auth9.6.png](auth9.6.png)
+
+Le damos **Ok** en todas las opciones hasta llegar a la ventana de `session handling rule editor` en donde seleccionamos la opcion de scope y le damos en la opción de `include all URLs` y le damos **Ok**.
+![auth9.7.png](auth9.7.png)
+
+Ahora en la pestaña de proxy en la parte de HTTP History mandamos al intruder la consulta en donde enviamos el codigo de 2do factor de autentificación.
+
+![auth9.8.png](auth9.8.png)
+
+Ya por útlimo realizamos en el intruder un ataque de fuerza bruta con el 2do facto de autentificación como hemos estado haciendo en laboratorios anteriores.
+
+![auth9.9.png](auth9.9.png)
+
+Para este ataque es necesario usar unicamente un hilo sino hay problemas con la sesiones y nos bota errores en la consulta.
+![auth9.10.png](auth9.10.png)
+
+Ya como resultado del ataque debemos buscar la consulta que nos indique una redirección(código 302) le damos click derecho y mostrar en el navegador, igual que el laboratorio anterior.
+
+![auth10.1.png](auth9.11.png)
