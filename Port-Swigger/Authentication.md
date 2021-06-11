@@ -212,4 +212,59 @@ Para este ataque es necesario usar unicamente un hilo sino hay problemas con la 
 
 Ya como resultado del ataque debemos buscar la consulta que nos indique una redirección(código 302) le damos click derecho y mostrar en el navegador, igual que el laboratorio anterior.
 
-![auth10.1.png](auth9.11.png)
+![auth9.1.png](auth9.11.png)
+
+## Vulnerabilities in other authentication mechanisms
+
+### Keeping users logged in
+
+#### Lab10: Brute-forcing a stay-logged in cookie
+
+Iniciamos sesión con las credenciales que tenemos `wiener:peter` y seleccionamos el cuadro *"Stay logged in"*.
+![auth10.1.png](auth10.1.png)
+
+Luego actualizamos la pagina **My Account** pero esta vez capturando los paquetes. 
+
+![auth10.2.png](auth10.2.png)
+
+Analizamos la cookie *stay-logged-in* y probamos si es que es algún tipo de encodificación de base 64.
+
+```bash
+$ echo "d2llbmVyOjUxZGMzMGRkYzQ3M2Q0M2E2MDExZTllYmJhNmNhNzcw" | base64 -d
+wiener:51dc30ddc473d43a6011e9ebba6ca770
+```
+
+Ahora verificamos si es que los caracteres que van despues de wiener es algún tipo de hash.
+
+```bash
+$ hashid 51dc30ddc473d32a6011e92bba6ca770
+Analyzing '51dc30ddc473d32a6011e92bba6ca770'
+[+] MD2
+[+] MD5
+[+] MD4
+[+] Double MD5
+[+] LM
+[+] RIPEMD-128
+[+] Haval-128
+[+] Tiger-128
+...
+```
+
+Parece ser MD5, esto se puede verificar en alguna página que tenga este tipo de hash y descubrimos que es el MD5 de la contraseña. Por ejemplo [https://www.md5online.org/md5-decrypt.html](https://www.md5online.org/md5-decrypt.html).
+
+Ahora tenemos la formula que tienen para generar la cookie `base64(user:MD5(password))`, esto nos servira para la generación de payloads
+
+
+Tenemos que enviar al intruder la consulta que anteriormente capturamos. En el intruder no nos va a servir la cookie session, la que vamos a usar será **stay-logged-in**
+
+![auth10.3.png](auth10.3.png)
+
+En la pestaña de **Payloads** cargamos las posibles contraseñas que nos da la página, luego en la sección **Payloads Processing** agregamos la regla `hash: MD5`, luego agremaos la regla `prefix` con el texto `carlos:` y finalmente la regla `encode base64`
+
+Por último en options en la sección de **grep extract**, buscamos `your username is ...` y lo mandamos a realizar el ataque.
+
+![auth10.4.png](auth10.4.png)
+
+La respuesta será la que te responda con el nombre **Carlos**.
+
+![auth10.5.png](auth10.5.png)
