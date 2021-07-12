@@ -11,3 +11,4 @@ sudo nmap -p 22,80 -sS -sC -sV 10.10.224.91 -oN targeted
 
 ## 80
 
+to be continue...

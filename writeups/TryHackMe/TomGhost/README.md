@@ -39,3 +39,5 @@ gpg --output credential.txt --decrypt credential.gpg
 ```
 
 ![145239.png](145239.png)
+
+to be continue...
