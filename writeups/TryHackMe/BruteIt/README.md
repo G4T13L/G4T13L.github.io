@@ -68,3 +68,4 @@ john password --wordlist=/usr/share/wordlists/rockyou.txt
 Lo probamos en la consola del otro lado.
 
 ![0712170524.png](0712170524.png)
+
