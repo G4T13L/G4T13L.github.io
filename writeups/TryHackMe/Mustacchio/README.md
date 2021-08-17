@@ -78,7 +78,7 @@ Como nos dieron la pista de que se puede ingresar con ssh entonces buscaremos si
 Con barry encontramos resultados.
 
 ```
-Name: -----BEGIN RSA PRIVATE KEY-----
+-----BEGIN RSA PRIVATE KEY-----
 Proc-Type: 4,ENCRYPTED
 DEK-Info: AES-128-CBC,D137279D69A43E71BB7FCB87FC61D25E
 
