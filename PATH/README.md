@@ -1,4 +1,4 @@
-# Learning Path
+# ¿Cómo iniciar?
 
 Este blog tiene como objetivo brindar un camino de aprendizaje con diferentes laboratorios de seguridad en el que uno podrá aprender varios temas de seguridad conforme vayas resolviendo los problemas, yo lo veo mas como un aprendizaje por necesidad de conocimiento.
 
