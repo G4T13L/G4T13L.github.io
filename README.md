@@ -1,4 +1,4 @@
-# Random Security
+# Security Notes
 
 <!-- {% include list.liquid all=true %} -->
 * [¿Cómo iniciar?](PATH/)
