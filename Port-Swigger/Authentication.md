@@ -1,5 +1,7 @@
 # Authentication
 
+[TOC]
+
 ## Vulnerabilities in password-based login
 
 ### Brute Force Attacks
