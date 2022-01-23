@@ -18,3 +18,8 @@ curl -i "https://acec1fab1f1086c6c0ecada300b800d0.web-security-academy.net/image
 ![path1.png](path1.png)
 
 Si lo probamos en el navegador el mismo enlace nos mostrará que intenta intrepretar la imagen con el resultado, debido a que la respuesta indica que el tipo de archivo que ha enviado en una imágen. Esta "imágen" no tiene el formato de imágen por eso no sabe como leerlo.
+
+## Common obstacles to exploiting file path traversal vulnerabilities
+
+### Lab 2: File path traversal, traversal sequences blocked with absolute path bypass
+
