@@ -338,7 +338,7 @@ Comprobamos que nos bote error colocando la cookie de la siguiente manera
 Ahora probamos si tiene la tabla users como nos pide el ejercicio
   
 ```sql
-42bE1LpD9wjQKpT9' and (SELECT case when (1=0) then to_char(1/0) else 'a' end from dual where rownum = 1)='a
+42bE1LpD9wjQKpT9' and (SELECT case when (1=0) then to_char(1/0) else 'a' end from users where rownum = 1)='a
 ```
   
 Luego verificamos la longitud de la contraseña del administrador
