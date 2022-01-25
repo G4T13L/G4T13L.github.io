@@ -1,4 +1,5 @@
 # Authentication
+
 [Vulnerabilities in password-based login](#vulnerabilities-in-password-based-login)
 [Brute Force Attacks](#brute-force-attacks)
 [Lab 1: User name enumeration via different responses](#lab-1-user-name-enumeration-via-different-responses)
