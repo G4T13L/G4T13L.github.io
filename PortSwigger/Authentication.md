@@ -125,9 +125,6 @@ En el primer payload colocamos la lista de los usuarios. En el segundo le coloca
 ![auth5.2.png](auth5.2.png)
 
 Para obtener el usuario buscamos que tenga la mayor longitud en la respuesta.
-
-![auth5.3.png](auth5.3.png)
-
 Luego como los anteriores laboratorios buscamos la contraseña con el usuario encontrado y vemos de que no indica un mensaje de error cuando el usuario y contraseña son correctos.
 
 ![auth5.4.png](auth5.4.png)
@@ -153,6 +150,10 @@ y terminaría de esta manera.
 ### Bypassing two-factor authentication
 
 #### Lab 7: 2FA simple bypass
+
+Ingresamos con las credenciales que tenemos `wiener:peter` y colocamos el código que nos den en el correo. Entramos a **my profile** y copiamos el url.
+
+Cerramos la sesión e ingresamos las otras credenciales `carlos:montoya`. Para cuando nos pregunten por el segundo factor de autentificación cambiamos el enlace que copiamos y ya salimos logeados sin problema.
 
 ### Flawed two-factor verification logic
 
