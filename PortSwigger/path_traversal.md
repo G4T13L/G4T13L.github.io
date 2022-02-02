@@ -1,5 +1,15 @@
 # Path Traversal
 
+- [Path Traversal](#path-traversal)
+  - [Reading arbitrary files via directory traversal](#reading-arbitrary-files-via-directory-traversal)
+    - [Lab 1: File path traversal, simple case](#lab-1-file-path-traversal-simple-case)
+  - [Common obstacles to exploiting file path traversal vulnerabilities](#common-obstacles-to-exploiting-file-path-traversal-vulnerabilities)
+    - [Lab 2: File path traversal, traversal sequences blocked with absolute path bypass](#lab-2-file-path-traversal-traversal-sequences-blocked-with-absolute-path-bypass)
+    - [Lab 3: File path traversal, traversal sequences stripped non-recursively](#lab-3-file-path-traversal-traversal-sequences-stripped-non-recursively)
+    - [Lab 4: File path traversal, traversal sequences stripped with superfluous URL-decode](#lab-4-file-path-traversal-traversal-sequences-stripped-with-superfluous-url-decode)
+    - [Lab 5: File path traversal, validation of start of path](#lab-5-file-path-traversal-validation-of-start-of-path)
+    - [Lab 6: File path traversal, validation of file extension with null byte bypass](#lab-6-file-path-traversal-validation-of-file-extension-with-null-byte-bypass)
+
 ## Reading arbitrary files via directory traversal
 
 ### Lab 1: File path traversal, simple case

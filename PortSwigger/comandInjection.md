@@ -1,5 +1,17 @@
 # Os Command Injection
 
+- [Os Command Injection](#os-command-injection)
+  - [Executing arbitrary commands](#executing-arbitrary-commands)
+    - [Lab 1: OS command injection, simple case](#lab-1-os-command-injection-simple-case)
+  - [Blind OS command injection vulnerabilities](#blind-os-command-injection-vulnerabilities)
+    - [Detecting blind OS command injection using time delays](#detecting-blind-os-command-injection-using-time-delays)
+      - [Lab 2: Blind OS command injection with time delays](#lab-2-blind-os-command-injection-with-time-delays)
+    - [Exploiting blind OS command injection by redirecting output](#exploiting-blind-os-command-injection-by-redirecting-output)
+      - [Lab 4: Blind OS command injection with output redirection](#lab-4-blind-os-command-injection-with-output-redirection)
+    - [Exploiting blind OS command injection using out-of-band (OAST) techniques](#exploiting-blind-os-command-injection-using-out-of-band-oast-techniques)
+      - [Lab 5: Blind OS command injection with out-of-band interaction](#lab-5-blind-os-command-injection-with-out-of-band-interaction)
+      - [Lab 6: Blind OS command injection with out-of-band data exfiltration](#lab-6-blind-os-command-injection-with-out-of-band-data-exfiltration)
+
 ## Executing arbitrary commands
 
 ### Lab 1: OS command injection, simple case
