@@ -1,5 +1,28 @@
 # Business Logic Vulnerabilities
 
+- [Business Logic Vulnerabilities](#business-logic-vulnerabilities)
+  - [Excessive trust in client-side controls](#excessive-trust-in-client-side-controls)
+    - [Lab 1: Excessive trust in client-side controls](#lab-1-excessive-trust-in-client-side-controls)
+    - [Lab: 2FA broken logic](#lab-2fa-broken-logic)
+  - [Failing to handle unconventional input](#failing-to-handle-unconventional-input)
+    - [Lab 2: High-level logic vulnerability](#lab-2-high-level-logic-vulnerability)
+    - [Lab 3: Low-level logic flaw](#lab-3-low-level-logic-flaw)
+    - [Lab 4: Inconsistent handling of exceptional input](#lab-4-inconsistent-handling-of-exceptional-input)
+  - [Making flawed assumptions about user behavior](#making-flawed-assumptions-about-user-behavior)
+    - [Trusted users won't always remain trustworthy](#trusted-users-wont-always-remain-trustworthy)
+      - [Lab 5: Inconsistent security controls](#lab-5-inconsistent-security-controls)
+    - [Users won't always supply mandatory input](#users-wont-always-supply-mandatory-input)
+      - [Lab 6: Weak isolation on dual-use endpoint](#lab-6-weak-isolation-on-dual-use-endpoint)
+      - [Lab: Password reset broken logic](#lab-password-reset-broken-logic)
+    - [Users won't always follow the intended sequence](#users-wont-always-follow-the-intended-sequence)
+      - [Lab: 2FA simple bypass](#lab-2fa-simple-bypass)
+      - [Lab 7: Insufficient workflow validation](#lab-7-insufficient-workflow-validation)
+      - [Lab 8: Authentication bypass via flawed state machine](#lab-8-authentication-bypass-via-flawed-state-machine)
+  - [Domain-specific flaws](#domain-specific-flaws)
+    - [Lab 9: Flawed enforcement of business rules](#lab-9-flawed-enforcement-of-business-rules)
+    - [Lab 10: Infinite money logic flaw](#lab-10-infinite-money-logic-flaw)
+    - [Lab 11: Authentication bypass via encryption oracle](#lab-11-authentication-bypass-via-encryption-oracle)
+
 ## Excessive trust in client-side controls
 
 ### Lab 1: Excessive trust in client-side controls
@@ -143,3 +166,149 @@ Luego hacemos el pedido de la chaqueta y nos movemos al carrito. Ahora si mandam
 
 ![business7.3.png](business7.3.png)
 
+#### Lab 8: Authentication bypass via flawed state machine
+
+Entramos a la pagina de logeo e interceptamos los paquetes con burp suite al iniciar sesión con las credenciales que nos dieron. Pasamos la consulta del inicio de sesión pero la consulta de role-selector la dropeamos. Ahora cuando entremos a la página de inicio tendremos el role de administrador.
+
+![business8.1.png](business8.1.png)
+
+Como administrador entramos a su panel y eliminamos a carlos.
+
+## Domain-specific flaws
+
+### Lab 9: Flawed enforcement of business rules
+
+Iniciamos sesión con las credenciales que nos dieron. Agregamos la chaqueta al carrito. En la parte de arriba nos muestra un código de cupon que podemos usar para la compra de los productos.
+
+![business9.1.png](business9.1.png)
+
+Si intentamos usar el mismo cupon dos veces nos botara un error.
+
+![business9.2.png](business9.2.png)
+
+En la parte de abajo de la página de inicio si le agregamos un correo, nos reenviara a un pop up donde nos dan otro cupon. 
+
+![business9.3.png](business9.3.png)
+![business9.4.png](business9.4.png)
+
+Ahora tenemos dos cupones:
+* NEWCUST5
+* SIGNUP30
+
+Nos bota error si es que mandamos el mismo cupon dos veces pero no si es que lo mandamos de forma intercalada.
+
+![business9.5.png](business9.5.png)
+
+Con esto reducimos el precio a 0 y podremos comprar la chaqueta.
+
+### Lab 10: Infinite money logic flaw
+
+Iniciamos sesión con el proxy de **BurpSuite** encendido y como el anterior laboratorio vamos a sacar el cupon de la parte de abajo de la pagina principal.
+
+![business10.1.png](business10.1.png)
+
+Ahora vamos a seleccionar el producto **gift card**.
+
+![business10.2.png](business10.2.png)
+
+Lo agregamos al carrito y colocamos el cupon que obtuvimos antes. Aplicamos el cupon y emitimos el pedido.
+
+![business10.3.png](business10.3.png)
+
+Nos darán un descuento de 3 dolares y nos darán un código para usar la *gift card*. Usaremos la gift card en la sección de *My profile*. Así recuperaremos los 7 dolares que gastamos y obtendremos 3 dolares extra.
+
+Ahora usaremos el BurpSuite, nos vamos a la sección de *project options*->*sessions* agregamos un elemento en *Session Handling Rules*.
+
+![business10.5.png](business10.5.png)
+
+Ahora en la zona de *scope* incluiremos todas las URLs.
+![business10.6.png](business10.6.png)
+
+Volvemos a *details* y agregamos una elemento en *Rule Actions* y seleccionamos *run a macro*.
+![business10.7.png](business10.7.png)
+
+Luego le damos al *Add* y seleccionamos. Las consultas que acabmos de hacer para:
+* Seleccionar el producto *gift card*
+* Usar el cupon de descuento
+* Verificar la compra
+* Confirmar la compra
+* Utilizar la *gift card* en nuestra cuenta
+```
+POST /cart
+POST /cart/coupon
+POST /cart/checkout
+GET /cart/order-confirmation?order-confirmed=true
+POST /gift-card
+```
+
+Hay que verificar que la primera consulta con la ruta /cart realice la petición del producto 2 como muestra en la pantalla.
+
+![business10.8.png](business10.8.png)
+
+Se debería ver de esta manera.
+
+![business10.9.png](business10.9.png)
+
+Seleccionamos la 4 petición y le damos a *configure item*.
+
+![business10.10.png](business10.10.png)
+
+Agregamos un elemento a *Custom parameter locations in response*. En el cuadro que nos sale seleccionamos el código de la gift card y le damos, le ponemos de nombre al parametro "*gift-card*". Luego le damos a ok >> ok.
+
+![business10.11.png](business10.11.png)
+
+Regresando a *Macro Editor* configuramos la última consulta. Al parametro *gift-card* seleccionamos *Deribe from prior response* y seleccionamos al otro lado response 4.
+
+![business10.12.png](business10.12.png)
+
+Le damos al *Ok* y a Test Macro.
+
+Mandamos al intruder la consulta en *My profile* donde haremos un sniper attack sin especificar los payloads. En *payloads sets* configuramos con *Null payloads* y que generé 412(como minimo para comprar la chaqueta) payloads. En *Resource Pool* configuramos para que se haga como maximo una conexión a la vez.
+
+![business10.13.png](business10.13.png)
+
+Ahora solo queda comprar la chaqueta.
+
+![business10.14.png](business10.14.png)
+
+### Lab 11: Authentication bypass via encryption oracle
+
+Iniciamos sesión agregando la casilla *stayed log in*. Ahora entramos a un post y tratamos de comentar con un correo erroneo.
+
+![business11.1.png](business11.1.png)
+
+Notamos que el mensaje de error se envía por una cookie encryptada, que luego se muestra en la respuesta de la página.
+
+![business11.2.png](business11.2.png)
+
+Mandamos al repeater las consultas del comentario que podemos usarlo para encriptar desde el parametro email y la consulta de `/post?postId=8` nos servira para desencriptar.
+
+![business11.3.png](business11.3.png)
+
+En la consulta de decifrado mandamos con la cookie `stay-logged-in` y lo colocamos en la cookie *notification*.
+
+![business11.4.png](business11.4.png)
+
+Vemos que el formato de la cookie *stayed-log-in* es `usuario:timestamp`. Ahora mandaremos la consulta que encripta y en el correo colocaremos `administrator:timestamp` el valor de timestamp será el mismo que teniamos con el usuario wiener.
+
+![business11.5.png](business11.5.png)
+
+si mandamos lo mismo con la consulta que desencripta nos damos cuenta que el resultado es: `Invalid email address: administrator:1644012633191`. Esto quiere decir que en todos los casos esta que le agrega la cadena `"Invalid email address: "` de 23 caracteres de longitud.
+
+Lo que haremos será mandar la cadena encriptada completa al decoder de BurpSuite. Ahí le aplicamos decodificación url y base64. Seleccionamos los 23 primeros caracteres y los eliminamos.
+
+![business11.6.png](business11.6.png)
+
+Al resto le hacemos una encodificación de base64 y url.
+
+![business11.7.png](business11.7.png)
+
+Cuando probamos la consulta que desencripta obtenemos el siguiente mensaje.
+
+![business11.8.png](business11.8.png)
+
+Entonces tenemmos que agregar una cantidad de caracteres al prefijo *"Invalid email address"* para que el número de caracteres que elimine sea múltiplo de 16. Así de esta manera el resto podrá ser intepretado correctamente.
+
+Tenemos la cadena inicial de *"Invalid email address* de 23 caracteres, nos faltaría 9 para un bloque múltiplo de 16. Enviamos a encriptar a `XXXXXXXXXadministrator:1644012633191`. Luego lo enviamos al encoder con el mismo proceso que hicimos anteriormente, pero esta vez eliminaremos los 36 primeros bytes.
+
+Ahora usamos esta cadena y la colocamos en la cookie *stay-logged-in*, para eso debemos borrar la cookie de session y podremos acceder como administrador para borrar la cuenta de carlos.
