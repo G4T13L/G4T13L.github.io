@@ -6,4 +6,4 @@ sort: 2
 
 {% include list.liquid all=true %}
 
-<script src="https://www.hackthebox.eu/badge/108975"></script>
+<img src="http://www.hackthebox.eu/badge/image/108975" alt="Hack The Box">
