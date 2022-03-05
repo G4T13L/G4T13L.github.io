@@ -36,3 +36,26 @@ Encontramos que existe la carpeta `/backup` donde nos indica el enlace a un cód
 ![infodis3.2.png](infodis3.2.png)
 
 Aca encontraremos la contraseña de la base de datos, dentro de una función para realizar conexión a la base de datos.
+
+### Information disclosure due to insecure configuration
+
+#### Lab 4: Authentication bypass via information disclosure
+
+Si intentamos entra al panel de administración, nos da un mensaje de que solo esta disponible la administración para usarios locales.
+
+![infodis4.1.png](infodis4.1.png)
+
+Interceptamos la consulta al actualizar la página usando **Burp Suite** y cambiamos la cabecera **GET** por un **TRACE**.
+
+![infodis4.2.png](infodis4.2.png)
+
+Esto nos hará descargar un archivo de nombre `admin` que nos mostrará la consulta que acabamos de realizar pero además de ello nos muestra una cabecera que no veíamos en una consulta normal.
+
+![infodis4.3.png](infodis4.3.png)
+
+Esta cabecera indica nuestra IP publica y la utiliza para saber si es que se esta realizando las consultas de forma local o externa.
+
+Ahora vamos a actualizar la página, pero esta vez vamos a agregar la cabecera `X-Custom-IP-Authorization: 127.0.0.1`.
+
+![infodis4.4.png](infodis4.4.png)
+![infodis4.5.png](infodis4.5.png)
