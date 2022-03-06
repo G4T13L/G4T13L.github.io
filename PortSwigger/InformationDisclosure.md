@@ -1,5 +1,19 @@
 # Information Disclosure
 
+- [Information Disclosure](#information-disclosure)
+  - [How to find and exploit information disclosure vulnerabilities](#how-to-find-and-exploit-information-disclosure-vulnerabilities)
+    - [Common sources of information disclosure](#common-sources-of-information-disclosure)
+      - [Error messages](#error-messages)
+        - [Lab 1: Information disclosure in error messages](#lab-1-information-disclosure-in-error-messages)
+      - [Debugging data](#debugging-data)
+        - [Lab 2: Information disclosure on debug page](#lab-2-information-disclosure-on-debug-page)
+    - [Source code disclosure via backup files](#source-code-disclosure-via-backup-files)
+      - [Lab 3: Source code disclosure via backup files](#lab-3-source-code-disclosure-via-backup-files)
+    - [Information disclosure due to insecure configuration](#information-disclosure-due-to-insecure-configuration)
+      - [Lab 4: Authentication bypass via information disclosure](#lab-4-authentication-bypass-via-information-disclosure)
+    - [Version control history](#version-control-history)
+      - [Lab 5: Information disclosure in version control history](#lab-5-information-disclosure-in-version-control-history)
+
 ## How to find and exploit information disclosure vulnerabilities
 
 ### Common sources of information disclosure
