@@ -59,3 +59,41 @@ Ahora vamos a actualizar la página, pero esta vez vamos a agregar la cabecera `
 
 ![infodis4.4.png](infodis4.4.png)
 ![infodis4.5.png](infodis4.5.png)
+
+### Version control history
+
+#### Lab 5: Information disclosure in version control history
+
+Buscamos los archivos de `.git` entrando a la ruta /.git dentro de la página.
+
+![infodis5.1.png](infodis5.1.png)
+
+Para sacar toda la carpeta vamos a usar wget con la flag "**-r**" esto descargará recursivamente la carpeta completa.
+
+```bash
+wget -r https://ac151fa01f82c703c0e80f08001b000d.web-security-academy.net/.git
+```
+
+Ahora que tenemos la carpeta .git usaremos el mismo git para buscar algún cambio que se haya hecho que nos pueda ser útil.
+
+```bash
+git diff
+```
+
+![infodis5.2.png](infodis5.2.png)
+
+Ahora sabemos que existe un archivo admin.conf en el cual se encontraba la contraseña del administrador. Vamos a regresar a ese commit donde estaba escrita la contraseña.
+
+```bash
+git log
+```
+
+![infodis5.3.png](infodis5.3.png)
+
+```bash
+git checkout 7bdcbe23d2a92f2c962a1b1568a77b9590500f49
+```
+
+![infodis5.4.png](infodis5.4.png)
+
+Con esta contraseña lograremos entrar como `administrator` y podremos borrar el usuario **carlos**.
